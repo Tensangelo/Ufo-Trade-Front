@@ -2,7 +2,7 @@
 
 Este es el frontend del proyecto **Ufo Trade** desarrollado con **Next.js 15**, **TypeScript**, **SCSS**, **Material UI**, **Axios**, **Material Icons**, y **DateJS**. Este frontend se comunica con la parte backend de **Ufo Trade**, manejando la autenticación con cookies y estructurado para ser escalable y fácil de mantener.
 
-## 🗂️ Tecnologías utilizadas
+## 📌  Tecnologías utilizadas
 
 - **Next.js 15**: Framework React para aplicaciones web optimizadas.
 - **TypeScript**: Superset de JavaScript que agrega tipado estático.
@@ -13,7 +13,7 @@ Este es el frontend del proyecto **Ufo Trade** desarrollado con **Next.js 15**, 
 - **DateJS**: Librería para manipular y dar formato a fechas de manera sencilla.
 - **Cookies**: Utilizado para la autenticación y almacenamiento de datos importantes.
 
-## Estructura de Carpetas
+## 🗂️ Estructura de Carpetas
 
 El proyecto está organizado de la siguiente manera:
 
