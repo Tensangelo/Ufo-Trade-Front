@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyecto Frontend - Ufo Trade
 
-## Getting Started
+Este es el frontend del proyecto **Ufo Trade** desarrollado con **Next.js 15**, **TypeScript**, **SCSS**, **Material UI**, **Axios**, **Material Icons**, y **DateJS**. Este frontend se comunica con la parte backend de **Ufo Trade**, manejando la autenticación con cookies y estructurado para ser escalable y fácil de mantener.
 
-First, run the development server:
+## Tecnologías utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js 15**: Framework React para aplicaciones web optimizadas.
+- **TypeScript**: Superset de JavaScript que agrega tipado estático.
+- **SCSS**: Preprocesador CSS para escribir estilos más organizados y reutilizables.
+- **Material UI**: Biblioteca de componentes React con diseño de Material Design.
+- **Axios**: Cliente HTTP para hacer solicitudes a APIs.
+- **Material Icons**: Biblioteca de iconos basada en Material Design.
+- **DateJS**: Librería para manipular y dar formato a fechas de manera sencilla.
+- **Cookies**: Utilizado para la autenticación y almacenamiento de datos importantes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estructura de Carpetas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El proyecto está organizado de la siguiente manera:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **/app**: Contiene las rutas de la aplicación, reemplazando la carpeta `pages` de Next.js.
+- **/hooks**: Contiene los hooks personalizados para manejar la lógica de la aplicación.
+- **/context**: Manejo del estado global y contexto de la aplicación.
+- **/services**: Servicios para interactuar con la API utilizando Axios.
+- **/types**: Definiciones de tipos TypeScript utilizadas en el proyecto.
+- **/utils**: Funciones utilitarias como la manipulación de fechas y otras funciones generales.
+- **/cookies**: Manejo de la autenticación utilizando cookies.
 
-## Learn More
+## 🔒 Autenticación
 
-To learn more about Next.js, take a look at the following resources:
+La autenticación se realiza mediante **JWT** (JSON Web Token) y **Cookies**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Al iniciar sesión, el backend genera un JWT y lo almacena en una cookie HTTPOnly.
+- En cada petición autenticada, el frontend envía la cookie para validar la sesión y mantener la autenticación activa.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚙️ Instalación y configuración
+- Instala dependencias
+- Ajusta tus variables de entorno en un archivo .env
+- Ejecuta en desarrollo con __npm run dev__
+- Revisar puertos de ejecucion para no tener problemas
