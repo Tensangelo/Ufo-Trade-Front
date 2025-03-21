@@ -1,0 +1,53 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+}
+
+.menuButton {
+  position: absolute !important;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(135deg, rgba(138,42,227,1) 0%, rgba(104,24,233,1) 75%, rgba(60,1,243,1) 100%) !important;
+  animation: pulse 1.5s infinite;
+}
+
+.drawerContent {
+  width: 250px;
+  padding: 16px;
+}
+
+.closeButton {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.slideBar {
+  border-radius: 1rem !important;
+
+  div {
+    margin-left: 1rem;
+  }
+
+  &:hover {
+    color: #8829e3;
+    background-color: #ede7f6 !important;
+  }
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
