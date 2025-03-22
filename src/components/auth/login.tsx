@@ -20,6 +20,7 @@ export const LoginPageComponent = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [formLoading, setFormLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -30,7 +31,8 @@ export const LoginPageComponent = () => {
         try {
             await Login(email, password);
             console.log("✅ Inicio de sesión exitoso");
-            router.push("/"); // Redirige a la página principal
+            setSuccess(true);
+            router.replace("/"); // Redirige a la página principal
         } catch (error) {
             console.log("❌ Credenciales incorrectas", error);
             setError(true);
@@ -75,6 +77,11 @@ export const LoginPageComponent = () => {
                             Las credenciales ingresadas son incorrectas. Inténtalo de nuevo.
                         </Alert>
                     )}
+                    {success && (
+                        <Alert severity='success' sx={{ margin: '1rem 0 2rem 0' }}>
+                            Ingreso confirmado. Redirigiendo, por favor espera...
+                        </Alert>
+                    )}
                     <Box component={'form'} onSubmit={handleSubmit} className={Style.containerInputs}>
                         <InputType
                             label="Email"
@@ -95,6 +102,7 @@ export const LoginPageComponent = () => {
                             typeBtn='submit'
                             variant="contained"
                             width="15rem"
+                            loading={formLoading}
                         />
                     </Box>
                     <Box component={'article'} className={Style.containerLinkSignin}>
