@@ -72,6 +72,13 @@ export const LoginPageComponent = () => {
                             Ingresa con tu cuenta
                         </Typography>
                     </article>
+                    <Alert severity='info' sx={{ margin: '1rem 0 2rem 0', textAlign: 'start' }}>
+                        User admin
+                        <br />
+                        correo: arthur02morgan@hotmail.com
+                        <br />
+                        password: hiJohn2
+                    </Alert>
                     {error && (
                         <Alert severity="error" sx={{ margin: '1rem 0 2rem 0' }}>
                             Las credenciales ingresadas son incorrectas. Inténtalo de nuevo.

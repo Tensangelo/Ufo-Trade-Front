@@ -40,7 +40,7 @@ const useAuth = () => {
 
     const Logout = async () => {
         try {
-            await api.post(`${UrlApi}/auth/logout`);
+            await api.post(`${UrlApi}/auth/logout`, {}, { withCredentials: true });
             setUser(null);
         } catch (error) {
             console.error("Error al cerrar sesión", error);
