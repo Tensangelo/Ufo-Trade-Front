@@ -49,6 +49,10 @@ const useAuth = () => {
         }
     };
 
+    useEffect(() => {
+        console.log("Usuario actualizado:", user);
+    }, [user]);
+
     return { user, loading, Login, Logout };
 };
 
