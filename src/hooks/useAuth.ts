@@ -4,11 +4,13 @@ import { User } from "@/types/types";
 
 const useAuth = () => {
     const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [shouldCheckSession, setShouldCheckSession] = useState(false);
 
     const UrlApi = process.env.NEXT_PUBLIC_API_URL;
 
     const checkSession = useCallback(async () => {
+        if (!shouldCheckSession) return;
         setLoading(true);
         try {
             const res = await api.get(`${UrlApi}/auth/me`, { withCredentials: true });
@@ -19,7 +21,7 @@ const useAuth = () => {
         } finally {
             setLoading(false);
         }
-    }, [UrlApi]);
+    }, [UrlApi, shouldCheckSession]);
 
     useEffect(() => {
         checkSession();
@@ -29,6 +31,7 @@ const useAuth = () => {
         setLoading(true);
         try {
             await api.post(`${UrlApi}/auth/login`, { email, password }, { withCredentials: true });
+            setShouldCheckSession(true);
             await checkSession();
         } catch (error) {
             console.error("Error al iniciar sesión", error);
@@ -42,16 +45,13 @@ const useAuth = () => {
         try {
             await api.post(`${UrlApi}/auth/logout`, {}, { withCredentials: true });
             setUser(null);
+            setShouldCheckSession(false);
         } catch (error) {
             console.error("Error al cerrar sesión", error);
         } finally {
             setLoading(false);
         }
     };
-
-    useEffect(() => {
-        console.log("Usuario actualizado:", user);
-    }, [user]);
 
     return { user, loading, Login, Logout };
 };
