@@ -81,8 +81,6 @@ export const MyEmployer = ({ profile, genders, roles }: CombinedProps) => {
         }
     };
 
-    console.log(formData);
-
     return (
         <Box component={'section'} className={Style.containerFormEdit}>
             <Box component={'div'} className={Style.containerTopForm}>
