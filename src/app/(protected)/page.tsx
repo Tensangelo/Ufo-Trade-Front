@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 // Components
-import { MyClient } from "../../components/profile/client";
-import { AlertLoading } from "../../components/loading/verifySession";
-import { useAuthContext } from "../../context/AuthContext";
+import { MyClient } from "@/components/profile/client";
+import { AlertLoading } from "@/components/loading/verifySession";
+import { useAuthContext } from "@/context/AuthContext";
 // Services
-import { getUserProfile, UserProfile } from "../../services/profile";
-import { MyEmployer } from "../../components/profile/employer";
-import { Gender, JobPositions } from "../../types/types";
-import { getGenders } from "../../services/gender";
-import { getJobPositions } from "../../services/jobPosition";
+import { getUserProfile, UserProfile } from "@/services/profile";
+import { MyEmployer } from "@/components/profile/employer";
+import { Gender, JobPositions } from "@/types/types";
+import { getGenders } from "@/services/gender";
+import { getJobPositions } from "@/services/jobPosition";
 
 export default function Home() {
   const { loading } = useAuthContext();
