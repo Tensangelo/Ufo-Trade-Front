@@ -88,8 +88,6 @@ export const MyEmployer = ({ profile, genders, roles }: CombinedProps) => {
                     Informacion de perfil
                 </Typography>
             </Box>
-            <Alert sx={{ margin: '1rem 0' }} severity="error">Modnongogoggo</Alert>
-            <Alert sx={{ margin: '1rem 0' }} severity="success">Mondongogogogogog</Alert>
             {error && <Alert sx={{ margin: '1rem 0' }} severity="error"> {error} </Alert>}
             {success && <Alert sx={{ margin: '1rem 0' }} severity="success"> {success} </Alert>}
             <Box component={'form'} className={Style.containerForm}>

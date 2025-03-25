@@ -48,6 +48,7 @@ const Sidebar = () => {
   const handleLogout = async () => {
     await Logout();
     router.push("/login");
+    router.refresh();
   };
 
   if (!user) {

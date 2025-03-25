@@ -12,7 +12,11 @@ const useAuth = () => {
         setLoading(true);
         try {
             const res = await api.get(`${UrlApi}/auth/me`, { withCredentials: true });
-            setUser(res.data);
+            if (res.data) {
+                setUser(res.data);
+            } else {
+                setUser(null); // 👈 Asegura que si no hay datos, el usuario sea null
+            }
         } catch (error) {
             if (process.env.NODE_ENV === "development") {
                 console.error("Error al verificar sesión:", error);
