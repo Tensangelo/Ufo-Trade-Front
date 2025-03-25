@@ -24,7 +24,7 @@ import Style from '@/styles/auth/register.module.scss';
 import { PasswordType } from "../forms/inputs/passwordType";
 import { InputType } from "../forms/inputs/inputType";
 import { ButtonDynamic } from "../forms/buttons/button";
-import { VerifySession } from "./verifySession";
+import { AlertLoading } from "../loading/verifySession";
 import { DynamicDatePicker } from "../forms/inputs/datePicker";
 import { DynamicSelect } from "../forms/inputs/selectType";
 
@@ -90,7 +90,7 @@ export const RegisterPageComponent = () => {
 
     if (loading) {
         return (
-            <VerifySession />
+            <AlertLoading textInformation="Verificando sesión..." />
         );
     }
 

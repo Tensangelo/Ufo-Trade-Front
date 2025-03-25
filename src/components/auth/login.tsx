@@ -11,7 +11,7 @@ import Style from '@/styles/auth/login.module.scss';
 import { PasswordType } from "../forms/inputs/passwordType";
 import { InputType } from "../forms/inputs/inputType";
 import { ButtonDynamic } from "../forms/buttons/button";
-import { VerifySession } from "./verifySession";
+import { AlertLoading } from "../loading/verifySession";
 
 export const LoginPageComponent = () => {
     const { Login, loading } = useAuthContext();
@@ -43,7 +43,7 @@ export const LoginPageComponent = () => {
 
     if (loading) {
         return (
-            <VerifySession />
+            <AlertLoading textInformation="Verificando sesión..." />
         );
     }
 

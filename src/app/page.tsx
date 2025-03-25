@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 // Components
 import { MyClient } from "@/components/profile/client";
-import { VerifySession } from "@/components/auth/verifySession";
+import { AlertLoading } from "@/components/loading/verifySession";
 import { useAuthContext } from "@/context/AuthContext";
 // Services
 import { getUserProfile, UserProfile } from "@/services/profile";
@@ -48,12 +48,12 @@ export default function Home() {
 
   if (loading) {
     return (
-        <VerifySession />
+        <AlertLoading textInformation="Verificando sesión..." />
     );
   }
 
   if (!profile) {
-    return <p>Cargando perfil...</p>;
+    return <AlertLoading textInformation="Cargando perfil..." />
   }
 
   return (

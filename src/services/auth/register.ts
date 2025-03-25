@@ -13,7 +13,9 @@ interface ApiResponse {
 
 export const registerUser = async (userData: RegisterUserData): Promise<ApiResponse> => {
     try {
-        const response = await axios.post(`${UrlApi}/auth/register`, userData);
+        const response = await axios.post(`${UrlApi}/auth/register`, userData, {
+            withCredentials: true,
+        });
         return {
             ...response.data,
             success: true,
