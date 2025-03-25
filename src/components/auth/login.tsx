@@ -14,7 +14,7 @@ import { ButtonDynamic } from "../forms/buttons/button";
 import { AlertLoading } from "../loading/verifySession";
 
 export const LoginPageComponent = () => {
-    const { Login, loading } = useAuthContext();
+    const { Login, user, loading } = useAuthContext();
     const router = useRouter();
 
     const [email, setEmail] = useState("");
@@ -41,10 +41,8 @@ export const LoginPageComponent = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <AlertLoading textInformation="Verificando sesión..." />
-        );
+    if (loading || user) {
+        return <AlertLoading textInformation="Verificando sesión..." />;
     }
 
     return (

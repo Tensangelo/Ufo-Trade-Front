@@ -8,6 +8,7 @@ interface AuthContextType {
     loading: boolean;
     Login: (email: string, password: string) => Promise<void>;
     Logout: () => Promise<void>;
+    checkSession: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

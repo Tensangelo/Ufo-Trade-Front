@@ -29,7 +29,7 @@ import { DynamicDatePicker } from "../forms/inputs/datePicker";
 import { DynamicSelect } from "../forms/inputs/selectType";
 
 export const RegisterPageComponent = () => {
-    const { Login, loading } = useAuthContext();
+    const { Login, loading, user } = useAuthContext();
     const router = useRouter();
     const [genders, setGenders] = useState<{ value: number; label: string }[]>([]);
     const [formData, setFormData] = useState<RegisterUserData>({
@@ -88,10 +88,8 @@ export const RegisterPageComponent = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <AlertLoading textInformation="Verificando sesión..." />
-        );
+    if (loading || user) {
+        return <AlertLoading textInformation="Verificando sesión..." />;
     }
 
     return (

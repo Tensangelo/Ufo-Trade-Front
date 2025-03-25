@@ -1,72 +1,93 @@
-'use client'
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+"use client";
+
+import { useState, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-// Material ui
-import { Drawer, IconButton, List, ListItem, ListItemText, ListItemButton, Divider } from "@mui/material";
-import { Menu as MenuIcon, Close as CloseIcon, AccountCircle, ExitToApp } from "@mui/icons-material";
+import { useAuthContext } from "@/context/AuthContext";
+// Material UI
+import {
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  Divider,
+} from "@mui/material";
+import {
+  Menu as MenuIcon,
+  Close as CloseIcon,
+  AccountCircle,
+  ExitToApp,
+} from "@mui/icons-material";
 // Icons
-import HouseIcon from '@mui/icons-material/House';
-import WorkIcon from '@mui/icons-material/Work';
-import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import HouseIcon from "@mui/icons-material/House";
+import WorkIcon from "@mui/icons-material/Work";
+import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import GitHubIcon from "@mui/icons-material/GitHub";
 // Styles
 import styles from "@/styles/sidebar.module.scss";
 
 const menuItems = [
-  { text: "Home", href: "/", icon: <HouseIcon sx={{ color: '#8829e3' }} className={styles.icon} /> },
-  { text: "Empleados", href: "/employers", icon: <WorkIcon sx={{ color: '#8829e3' }} className={styles.icon} /> },
-  { text: "Clientes", href: "/clients", icon: <PermContactCalendarIcon sx={{ color: '#8829e3' }} className={styles.icon} /> },
-  { text: "Contact", href: "/contact", icon: <GitHubIcon sx={{ color: '#8829e3' }} className={styles.icon} /> }
-];
-
-const profileOptions = [
-  { text: "Mi perfil", href: "/profile", icon: <AccountCircle sx={{ color: '#8829e3' }} className={styles.icon} /> },
-  { text: "Logout", href: "/logout", icon: <ExitToApp sx={{ color: '#8829e3' }} className={styles.icon} /> }
+  { text: "Home", href: "/", icon: <HouseIcon /> },
+  { text: "Empleados", href: "/employers", icon: <WorkIcon /> },
+  { text: "Clientes", href: "/clients", icon: <PermContactCalendarIcon /> },
+  { text: "Contact", href: "/contact", icon: <GitHubIcon /> },
 ];
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { Logout , user } = useAuthContext();
 
-  if (pathname === "/login" || pathname === "/register") {
+  const toggleDrawer = useCallback((state: boolean) => () => setOpen(state), []);
+
+  if (pathname === "/login" || pathname === "/register") return null;
+
+  const handleLogout = async () => {
+    await Logout();
+    router.push("/login");
+  };
+
+  if (!user) {
     return null;
   }
 
-  const toggleDrawer = (state: boolean) => () => {
-    setOpen(state);
-  };
-
   return (
     <div className={styles.container}>
-      <IconButton onClick={toggleDrawer(true)} className={styles.menuButton}>
-        <MenuIcon sx={{ color: '#ffffff' }} />
+      <IconButton onClick={toggleDrawer(true)} className={styles.menuButton} aria-label="Open menu">
+        <MenuIcon sx={{ color: "#ffffff" }} />
       </IconButton>
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <div className={styles.drawerContent}>
-          <IconButton onClick={toggleDrawer(false)} className={styles.closeButton}>
-            <CloseIcon sx={{ color: '#8829e3' }} />
+          <IconButton onClick={toggleDrawer(false)} className={styles.closeButton} aria-label="Close menu">
+            <CloseIcon sx={{ color: "#8829e3" }} />
           </IconButton>
           <List>
             {menuItems.map(({ text, href, icon }) => (
               <ListItem key={text} component={Link} href={href}>
-                <ListItemButton className={styles.slideBar}>
+                <ListItemButton className={styles.slideBar} selected={pathname === href}>
                   {icon}
                   <ListItemText primary={text} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
-          <Divider sx={{ color: '#8829e3' }} />
+          <Divider />
           <List>
-            {profileOptions.map(({ text, href, icon }) => (
-              <ListItem key={text} component={Link} href={href}>
-                <ListItemButton className={styles.slideBar}>
-                  {icon}
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            <ListItem component={Link} href="/profile">
+              <ListItemButton className={styles.slideBar} selected={pathname === "/profile"}>
+                <AccountCircle />
+                <ListItemText primary="Mi perfil" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton className={styles.slideBar} onClick={handleLogout}>
+                <ExitToApp />
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
           </List>
         </div>
       </Drawer>
