@@ -12,6 +12,7 @@ Este es el frontend del proyecto **Ufo Trade** desarrollado con **Next.js 15**, 
 - **Material Icons**: Biblioteca de iconos basada en Material Design.
 - **DateJS**: Librería para manipular y dar formato a fechas de manera sencilla.
 - **Cookies**: Utilizado para la autenticación y almacenamiento de datos importantes.
+- **react-toastify**: Para el manejo y gestion de alertas globales y formularios.
 
 ## 🗂️ Estructura de Carpetas
 
