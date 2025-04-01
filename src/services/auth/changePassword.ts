@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "@/utils/api";
 
 const UrlApi = process.env.NEXT_PUBLIC_API_URL;
 
@@ -10,9 +10,8 @@ export interface UpdatePasswordData {
 
 export const updatePassword = async ({ userId, oldPassword, newPassword }: UpdatePasswordData): Promise<string> => {
     try {
-        const response = await axios.put(`${UrlApi}/users/updatePass/${userId}`, { oldPassword, newPassword}, {
+        const response = await api.put(`${UrlApi}/users/updatePass/${userId}`, { oldPassword, newPassword}, {
             headers: { "Content-Type": "application/json" },
-            withCredentials: true,
         });
 
         return response.data.message;

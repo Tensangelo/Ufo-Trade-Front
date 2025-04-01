@@ -1,49 +1,35 @@
 "use client"
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuthContext } from "@/context/AuthContext";
 // Material UI
-import { Alert, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // Styles
 import Style from '@/styles/auth/login.module.scss';
 // Forms Components
 import { PasswordType } from "../forms/inputs/passwordType";
 import { InputType } from "../forms/inputs/inputType";
 import { ButtonDynamic } from "../forms/buttons/button";
-import { AlertLoading } from "../loading/verifySession";
 
 export const LoginPageComponent = () => {
-    const { Login, user, loading } = useAuthContext();
-    const router = useRouter();
+    const { Login } = useAuthContext();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [formLoading, setFormLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setFormLoading(true);
-        setError(false);
 
         try {
             await Login(email, password);
-            console.log("✅ Inicio de sesión exitoso");
-            setSuccess(true);
-            router.replace("/"); // Redirige a la página principal
         } catch (error) {
-            console.log("❌ Credenciales incorrectas", error);
-            setError(true);
+            console.error(error);
         } finally {
             setFormLoading(false);
         }
     };
-
-    if (loading || user) {
-        return <AlertLoading textInformation="Verificando sesión..." />;
-    }
 
     return (
         <Box component={'section'} className={Style.containerGeneral}>
@@ -70,23 +56,6 @@ export const LoginPageComponent = () => {
                             Ingresa con tu cuenta
                         </Typography>
                     </article>
-                    <Alert severity='info' sx={{ margin: '1rem 0 2rem 0', textAlign: 'start' }}>
-                        User admin
-                        <br />
-                        correo: arthur02morgan@hotmail.com
-                        <br />
-                        password: hiJohn2
-                    </Alert>
-                    {error && (
-                        <Alert severity="error" sx={{ margin: '1rem 0 2rem 0' }}>
-                            Las credenciales ingresadas son incorrectas. Inténtalo de nuevo.
-                        </Alert>
-                    )}
-                    {success && (
-                        <Alert severity='success' sx={{ margin: '1rem 0 2rem 0' }}>
-                            Ingreso confirmado. Redirigiendo, por favor espera...
-                        </Alert>
-                    )}
                     <Box component={'form'} onSubmit={handleSubmit} className={Style.containerInputs}>
                         <InputType
                             label="Email"

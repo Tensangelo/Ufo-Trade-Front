@@ -62,6 +62,14 @@
                 min-width: 280px;
             }
 
+            div {
+
+                .containerSelectAux {
+                    display: flex;
+                    height: 88px;
+                }
+            }
+
             @media (min-width: 768px) {
                 > div {
                     max-width: calc(33.33% - 1rem); // Tres columnas en pantallas grandes

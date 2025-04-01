@@ -70,6 +70,7 @@ export const InputType = ({
                         disabled={disabled}
                         value={value}
                         onChange={onChange}
+                        autoComplete="off"
                     />
                 </FormControl>
             ) : (
@@ -101,6 +102,7 @@ export const InputType = ({
                         disabled={disabled}
                         value={value}
                         onChange={onChange}
+                        autoComplete="off"
                     />
                 </FormControl>
             )}
