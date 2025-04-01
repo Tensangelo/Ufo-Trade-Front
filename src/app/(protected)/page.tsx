@@ -12,12 +12,14 @@ import { getGenders } from "@/services/gender";
 import { getJobPositions } from "@/services/jobPosition";
 
 export default function Home() {
-  const { loading } = useAuthContext();
+  const { loading, user } = useAuthContext();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [genders, setGenders] = useState<Gender[]>([]);
   const [roles, setRoles] = useState<Gender[]>([]);
 
   useEffect(() => {
+    if (!user) return;
+
     const fetchProfile = async () => {
       const data = await getUserProfile();
       setProfile(data);
@@ -44,7 +46,7 @@ export default function Home() {
     fetchProfile();
     fetchGenders();
     fetchRoles();
-  }, []);
+  }, [user]);
 
   if (loading) {
     return (

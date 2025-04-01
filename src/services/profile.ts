@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "@/utils/api";
 
 const UrlApi = process.env.NEXT_PUBLIC_API_URL;
 
@@ -33,9 +33,7 @@ export type UserProfile = ClientProfile | EmployerProfile;
 
 export const getUserProfile = async (): Promise<UserProfile | null> => {
     try {
-        const response = await axios.get<UserProfile>(`${UrlApi}/users/profile`, {
-            withCredentials: true,
-        });
+        const response = await api.get<UserProfile>(`${UrlApi}/users/profile`);
 
         const userData = response.data;
 

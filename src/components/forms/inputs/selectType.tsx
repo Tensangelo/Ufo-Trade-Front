@@ -18,7 +18,7 @@ export const DynamicSelect = ({
     value,
     onChange,
     fullWidth = true,
-    disabled = false
+    disabled = false,
 }: DynamicSelectProps) => {
     const [selectedValue, setSelectedValue] = useState<string | number>(value || "");
 
@@ -35,7 +35,9 @@ export const DynamicSelect = ({
     return (
         <Box component={'div'} className={Style.containerSelect}>
             <FormControl fullWidth={fullWidth} disabled={disabled}>
-                <InputLabel id={`input-select-dynamic-${label}`} >{label}</InputLabel>
+                <InputLabel id={`input-select-dynamic-${label}`} shrink={true}>
+                    {label}
+                </InputLabel>
                 <Select
                     id={`demo-simple-select-${label}`}
                     labelId={`input-select-dynamic-${label}`}
@@ -46,7 +48,7 @@ export const DynamicSelect = ({
                 >
                     {options.map((option) => (
                         <MenuItem key={option.value} value={option.value} disabled={option.disabled}>
-                        {option.label}
+                            {option.label}
                         </MenuItem>
                     ))}
                 </Select>

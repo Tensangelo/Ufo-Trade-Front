@@ -1,5 +1,5 @@
-import axios from "axios";
 import { UserProfile } from "@/services/profile";
+import api from "@/utils/api";
 
 const UrlApi = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,9 +12,8 @@ interface UpdateResponse {
 
 export const updateClient = async (profile: UserProfile, id: number): Promise<UpdateResponse> => {
     try {
-        const response = await axios.put(`${UrlApi}/clients/update/${id}`, profile, {
+        const response = await api.put(`${UrlApi}/clients/update/${id}`, profile, {
             headers: { "Content-Type": "application/json" },
-            withCredentials: true,
         });
         return response.data;
     } catch (error) {

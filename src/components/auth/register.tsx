@@ -24,12 +24,11 @@ import Style from '@/styles/auth/register.module.scss';
 import { PasswordType } from "../forms/inputs/passwordType";
 import { InputType } from "../forms/inputs/inputType";
 import { ButtonDynamic } from "../forms/buttons/button";
-import { AlertLoading } from "../loading/verifySession";
 import { DynamicDatePicker } from "../forms/inputs/datePicker";
 import { DynamicSelect } from "../forms/inputs/selectType";
 
 export const RegisterPageComponent = () => {
-    const { Login, loading, user } = useAuthContext();
+    const { Login } = useAuthContext();
     const router = useRouter();
     const [genders, setGenders] = useState<{ value: number; label: string }[]>([]);
     const [formData, setFormData] = useState<RegisterUserData>({
@@ -87,10 +86,6 @@ export const RegisterPageComponent = () => {
             setIsSubmitting(false);
         }
     };
-
-    if (loading || user) {
-        return <AlertLoading textInformation="Verificando sesión..." />;
-    }
 
     return (
         <Box component={'section'} className={Style.containerRegister}>
@@ -158,12 +153,14 @@ export const RegisterPageComponent = () => {
                             format="DD/MM/YYYY"
                             maxDate={dayjs()}
                         />
-                        <DynamicSelect
-                            label="Seleccione género"
-                            options={genders}
-                            value={formData.genderId}
-                            onChange={(e) => handleChange("genderId", Number(e))}
-                        />
+                        <Box component={'div'} className={Style.containerSelectAux}>
+                            <DynamicSelect
+                                label="Seleccione género"
+                                options={genders}
+                                value={formData.genderId}
+                                onChange={(e) => handleChange("genderId", Number(e))}
+                            />
+                        </Box>
                     </div>
                     <div>
                         <InputType

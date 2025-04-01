@@ -4,6 +4,7 @@ import { useAuthContext  } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AlertLoading } from "@/components/loading/verifySession";
+import { toast } from "react-toastify";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 const { user, loading, checkSession } = useAuthContext();  // Estado de autenticación
@@ -22,6 +23,7 @@ const { user, loading, checkSession } = useAuthContext();  // Estado de autentic
 
         if (!loading && !user) {
             router.replace("/login");  // Redirige si no hay sesión
+            toast.warn("Debes estar autenticado para acceder a este sitio...");
         }
     }, [user, loading, router]);
 

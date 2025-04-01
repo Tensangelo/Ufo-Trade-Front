@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@mui/material";
+import { ToastContainer } from "react-toastify";
 // Components
 import Sidebar from "@/components/sidebar";
 // Styles theme personalizate
@@ -18,6 +19,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <ThemeProvider theme={theme}>
           <AuthProvider>
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              closeOnClick
+            />
             <Sidebar />
             <main className="Body">
               {children}

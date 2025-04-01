@@ -35,3 +35,33 @@ a {
   justify-content: center;
   align-items: center;
 }
+
+.Toastify__toast--success {
+  border-left: 5px solid #8829e3;
+
+  .Toastify__progress-bar--success {
+    background: #8829e3;
+  }
+
+  .Toastify__toast-icon {
+
+      svg {
+        fill: #8829e3;
+      }
+  }
+}
+
+.Toastify__toast--warning {
+  width: 380px;
+  border-left: 5px solid #FFA500;
+
+  .Toastify__progress-bar--warning {
+    background: #FFA500;
+  }
+
+  .Toastify__toast-icon {
+    svg {
+      fill: #FFA500;
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { useAuthContext  } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AlertLoading } from "@/components/loading/verifySession";
+import { toast } from "react-toastify";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const { user, loading, checkSession } = useAuthContext();
@@ -22,6 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         if (!loading && user) {
             router.replace("/");  // Si ya está logueado, redirige a home
+            toast.warn("Ya estas logueado.");
         }
     }, [user, loading, router]);
 

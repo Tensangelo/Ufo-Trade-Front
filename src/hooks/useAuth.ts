@@ -1,27 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback } from "react";
-import api from "@/utils/api";
+import axios from "axios";
 import { User } from "@/types/types";
+import { toast } from "react-toastify";
 
 const useAuth = () => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const UrlApi = process.env.NEXT_PUBLIC_API_URL;
 
     const checkSession = useCallback(async () => {
         setLoading(true);
+        setError(null);
+
         try {
-            const res = await api.get(`${UrlApi}/auth/me`, { withCredentials: true });
+            const res = await axios.get(`${UrlApi}/auth/me`, { withCredentials: true });
             if (res.data) {
                 setUser(res.data);
             } else {
                 setUser(null); // 👈 Asegura que si no hay datos, el usuario sea null
             }
-        } catch (error) {
-            if (process.env.NODE_ENV === "development") {
-                console.error("Error al verificar sesión:", error);
+        } catch (err: any) {
+            if (err.response?.status === 401 || err.response?.status === 403) {
+                setUser(null); // Token inválido o expirado
+            } else {
+                const errorMessage = err.response?.data?.message || "No se pudo verificar la sesión.";
+                setError(errorMessage);
+                toast.error(errorMessage);
             }
-            setUser(null);
         } finally {
             setLoading(false);
         }
@@ -29,33 +37,36 @@ const useAuth = () => {
 
     const Login = async (email: string, password: string) => {
         setLoading(true);
+        setError(null);
         try {
-            await api.post(`${UrlApi}/auth/login`, { email, password }, { withCredentials: true });
+            await axios.post(`${UrlApi}/auth/login`, { email, password }, { withCredentials: true });
             await checkSession();
-        } catch (error) {
-            if (process.env.NODE_ENV === "development") {
-                console.error("Error al iniciar sesión:", error);
-            }
-            throw new Error("Error al iniciar sesión");
+            toast.success("Inicio de sesión exitoso 🎉");
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || "Error inesperado. Inténtalo de nuevo.";
+            setError(errorMessage);
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
     };
 
     const Logout = async () => {
+        setError(null);
         try {
-            await api.post(`${UrlApi}/auth/logout`, {}, { withCredentials: true });
+            await axios.post(`${UrlApi}/auth/logout`, {}, { withCredentials: true });
             setUser(null);
-        } catch (error) {
-            if (process.env.NODE_ENV === "development") {
-                console.error("Error al cerrar sesión:", error);
-            }
+            toast.success("Vuelve pronto...");
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || "Hubo un problema al cerrar sesión.";
+            setError(errorMessage);
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
     };
 
-    return { user, loading, Login, Logout, checkSession };
+    return { user, loading, error, Login, Logout, checkSession };
 };
 
 export default useAuth;
