@@ -10,9 +10,10 @@ import Style from '@/styles/auth/login.module.scss';
 import { PasswordType } from "../forms/inputs/passwordType";
 import { InputType } from "../forms/inputs/inputType";
 import { ButtonDynamic } from "../forms/buttons/button";
+import { AlertLoading } from "../loading/verifySession";
 
 export const LoginPageComponent = () => {
-    const { Login } = useAuthContext();
+    const { Login, loading, user } = useAuthContext();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,6 +31,10 @@ export const LoginPageComponent = () => {
             setFormLoading(false);
         }
     };
+
+    if (loading || user) {
+        return <AlertLoading textInformation="Verificando sesión..." />;
+    }
 
     return (
         <Box component={'section'} className={Style.containerGeneral}>

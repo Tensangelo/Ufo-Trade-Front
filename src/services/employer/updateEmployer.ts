@@ -2,7 +2,6 @@ import { UserProfile } from "@/services/profile";
 import api from "@/utils/api";
 
 const UrlApi = process.env.NEXT_PUBLIC_API_URL;
-
 interface UpdateResponse {
     success: boolean;
     message: string;

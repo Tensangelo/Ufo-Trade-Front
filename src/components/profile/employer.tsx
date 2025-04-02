@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Alert, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 // Components
 import { InputType } from "../forms/inputs/inputType";
@@ -22,6 +22,7 @@ import { updateEmployer } from "@/services/employer/updateEmployer";
 import { Gender, JobPositions } from "@/types/types";
 // Styles
 import Style from '@/styles/profile/profile.module.scss';
+import { toast } from "react-toastify";
 
 interface MyEmployerProps {
     profile: EmployerProfile;
@@ -42,6 +43,7 @@ export const MyEmployer = ({ profile, genders, roles }: CombinedProps) => {
         ...profile,
         birthDate: profile.birthDate || "",
         phone: profile.phone || "",
+        salary: profile.salary ? Number(profile.salary) : 0,
     });
 
     const [isEditing, setIsEditing] = useState(false);
@@ -55,6 +57,7 @@ export const MyEmployer = ({ profile, genders, roles }: CombinedProps) => {
             ...profile,
             birthDate: profile.birthDate || "",
             phone: profile.phone || "",
+            salary: profile.salary ? Number(profile.salary) : 0,
         });
     }, [profile]);
 
@@ -81,6 +84,20 @@ export const MyEmployer = ({ profile, genders, roles }: CombinedProps) => {
         }
     };
 
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+            setError(null);
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if (success) {
+            toast.success(success);
+            setSuccess(null);
+        }
+    }, [success]);
+
     return (
         <Box component={'section'} className={Style.containerFormEdit}>
             <Box component={'div'} className={Style.containerTopForm}>
@@ -88,8 +105,6 @@ export const MyEmployer = ({ profile, genders, roles }: CombinedProps) => {
                     Informacion de perfil
                 </Typography>
             </Box>
-            {error && <Alert sx={{ margin: '1rem 0' }} severity="error"> {error} </Alert>}
-            {success && <Alert sx={{ margin: '1rem 0' }} severity="success"> {success} </Alert>}
             <Box component={'form'} className={Style.containerForm}>
                 <InputType
                     label="Nombres"

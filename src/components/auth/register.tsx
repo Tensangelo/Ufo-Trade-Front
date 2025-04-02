@@ -26,9 +26,10 @@ import { InputType } from "../forms/inputs/inputType";
 import { ButtonDynamic } from "../forms/buttons/button";
 import { DynamicDatePicker } from "../forms/inputs/datePicker";
 import { DynamicSelect } from "../forms/inputs/selectType";
+import { AlertLoading } from "../loading/verifySession";
 
 export const RegisterPageComponent = () => {
-    const { Login } = useAuthContext();
+    const { Login, loading, user } = useAuthContext();
     const router = useRouter();
     const [genders, setGenders] = useState<{ value: number; label: string }[]>([]);
     const [formData, setFormData] = useState<RegisterUserData>({
@@ -86,6 +87,10 @@ export const RegisterPageComponent = () => {
             setIsSubmitting(false);
         }
     };
+
+    if (loading || user) {
+        return <AlertLoading textInformation="Verificando sesión..." />;
+    }
 
     return (
         <Box component={'section'} className={Style.containerRegister}>
